@@ -31,8 +31,10 @@ staticfiles/
 
 # ChromaDB and Vector Databases
 backend/ragBackend/chroma_db/
+**/chroma_db/
 *.bin
 chroma.sqlite3
+**/data_level*.bin
 
 # Torch and CUDA Libraries
 *.so
