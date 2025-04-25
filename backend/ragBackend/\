@@ -1,0 +1,84 @@
+# rag_system/services/chroma_db.py
+import os
+from typing import List, Dict, Any, Optional
+import chromadb
+from chromadb.config import Settings
+from langchain.vectorstores import Chroma
+from langchain.schema import Document
+
+from django.conf import settings
+from .embeddings import get_embeddings
+from ..models import Document as DocumentModel
+
+
+class ChromaDBService:
+    """Service for interacting with the ChromaDB vector database"""
+
+    def __init__(self):
+        self.persist_directory = os.path.join(settings.BASE_DIR, "chroma_db")
+        self.collection_name = "document_collection"
+        self.embeddings = get_embeddings()
+
+    def get_db(self):
+        """Get or create the ChromaDB instance"""
+        return Chroma(
+            persist_directory=self.persist_directory,
+            embedding_function=self.embeddings,
+            collection_name=self.collection_name,
+        )
+
+    def add_documents(self, documents: List[Document]) -> List[str]:
+        """Add documents to the vector store"""
+        db = self.get_db()
+        # Add documents and get the IDs
+        ids = db.add_documents(documents)
+        # Persist changes to disk
+        db.persist()
+        return ids
+
+    def similarity_search_with_score(self, query: str, k: int = 5) -> List[tuple]:
+        """Search for similar documents with relevance scores"""
+        db = self.get_db()
+        return db.similarity_search_with_score(query, k=k)
+
+    def similarity_search(self, query: str, k: int = 5) -> List[Document]:
+        """Search for similar documents"""
+        db = self.get_db()
+        return db.similarity_search(query, k=k)
+
+    def rebuild_index(self) -> Dict[str, Any]:
+        """Rebuild the entire vector index from stored documents"""
+        from .document_loader import DocumentProcessor
+
+        # Create document processor
+        processor = DocumentProcessor()
+
+        # Get all documents from the database that need indexing
+        documents = DocumentModel.objects.filter(indexed=False)
+
+        # Process each document and add to vector store
+        total_chunks = 0
+        processed_docs = []
+
+        for doc in documents:
+            try:
+                result = processor.process_document(doc.file_path, doc.name)
+                chunks = result["chunks"]
+                self.add_documents(chunks)
+
+                # Mark document as indexed
+                doc.indexed = True
+                doc.chunk_count = len(chunks)
+                doc.save()
+
+                total_chunks += len(chunks)
+                processed_docs.append(doc)
+            except Exception as e:
+                print(f"Error indexing document {doc.id}: {e}")
+
+        return {
+            "success": True,
+            "documents_added": len(processed_docs),
+            "chunks_added": total_chunks,
+            "message": f"Successfully indexed {len(processed_docs)} documents with {total_chunks} chunks.",
+        }
