@@ -1,0 +1,106 @@
+<!-- src/app/rag-system/rag-system.component.html -->
+<div class="rag-container">
+  <mat-card class="main-card">
+    <mat-card-header>
+      <mat-card-title>PDF Question Answering System</mat-card-title>
+      <mat-card-subtitle>Upload PDFs and ask questions about their content</mat-card-subtitle>
+    </mat-card-header>
+
+    <mat-card-content>
+      <!-- Upload Section -->
+      <div class="upload-section">
+        <h2>Document Management</h2>
+
+        <div class="file-upload-container">
+          <div class="file-input">
+            <button mat-stroked-button color="primary" (click)="fileInput.click()">
+              <mat-icon>attach_file</mat-icon>
+              Select PDF
+            </button>
+            <input #fileInput type="file" accept=".pdf" (change)="onFileSelected($event)" style="display: none">
+            <span *ngIf="selectedFile" class="file-name">{{ selectedFile.name }}</span>
+          </div>
+
+          <button mat-flat-button color="primary" [disabled]="!selectedFile || isUploading" (click)="uploadFile()">
+            <mat-icon>cloud_upload</mat-icon>
+            Upload
+          </button>
+
+          <button mat-flat-button color="accent" [disabled]="isRebuildingIndex" (click)="rebuildIndex()">
+            <mat-icon>refresh</mat-icon>
+            Rebuild Index
+          </button>
+        </div>
+
+        <mat-progress-bar *ngIf="isUploading" [value]="uploadProgress" class="upload-progress"></mat-progress-bar>
+      </div>
+
+      <mat-divider></mat-divider>
+
+      <!-- Chat Section -->
+      <div class="chat-section">
+        <h2>Ask Questions</h2>
+
+        <div class="chat-messages">
+          <div *ngIf="messages.length === 0" class="empty-chat">
+            <p>Upload documents and start asking questions about them!</p>
+          </div>
+
+          <div *ngFor="let message of messages"
+            [ngClass]="{'user-message': message.isUser, 'ai-message': !message.isUser}" class="message">
+            <div class="message-content">
+              <div class="message-text">{{ message.text }}</div>
+
+              <!-- Source Documents -->
+              <mat-expansion-panel *ngIf="message.sources && message.sources.length > 0" class="sources-panel">
+                <mat-expansion-panel-header>
+                  <mat-panel-title>Source Documents</mat-panel-title>
+                </mat-expansion-panel-header>
+
+                <mat-list>
+                  <mat-list-item *ngFor="let source of message.sources">
+                    <mat-icon matListItemIcon>description</mat-icon>
+                    <div matListItemTitle>{{ source.document_name }}</div>
+                    <div matListItemLine *ngIf="source.page">Page {{ source.page }}</div>
+                  </mat-list-item>
+                </mat-list>
+              </mat-expansion-panel>
+            </div>
+
+            <div class="message-time">
+              {{ message.timestamp | date:'short' }}
+            </div>
+          </div>
+        </div>
+
+        <!-- Loading Indicator -->
+        <div *ngIf="isProcessing" class="processing-indicator">
+          <mat-spinner [diameter]="30"></mat-spinner>
+          <span>Processing query...</span>
+        </div>
+
+        <!-- Query Input -->
+        <div class="query-input">
+          <form [formGroup]="queryForm" (ngSubmit)="sendQuery()">
+            <mat-form-field appearance="outline" class="query-field">
+              <mat-label>Ask a question about your documents</mat-label>
+              <input matInput formControlName="query" [disabled]="isProcessing">
+            </mat-form-field>
+
+            <div class="action-buttons">
+              <button mat-icon-button type="button" (click)="clearChat()" matTooltip="Clear chat"
+                [disabled]="messages.length === 0 || isProcessing">
+                <mat-icon>delete</mat-icon>
+              </button>
+
+              <button mat-flat-button color="primary" type="submit" [disabled]="queryForm.invalid || isProcessing">
+                <mat-icon>send</mat-icon>
+                Send
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </mat-card-content>
+  </mat-card>
+</div>

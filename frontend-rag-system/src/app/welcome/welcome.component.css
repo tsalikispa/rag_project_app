@@ -1,0 +1,69 @@
+/* src/app/welcome/welcome.component.css */
+.welcome-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background-color: #f8f9fa;
+  padding: 20px;
+}
+
+.welcome-card {
+  max-width: 800px;
+  padding: 40px;
+  text-align: center;
+  background-color: white;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+}
+
+.welcome-title {
+  font-size: 2.5rem;
+  margin-bottom: 20px;
+  color: #3f51b5;
+  min-height: 60px;
+}
+
+.welcome-subtitle {
+  font-size: 1.2rem;
+  margin-bottom: 40px;
+  color: #757575;
+}
+
+.button-container {
+  margin-top: 20px;
+}
+
+.button-container button {
+  padding: 8px 24px;
+  font-size: 1.1rem;
+}
+
+.typed-text {
+  font-weight: 500;
+}
+
+.cursor {
+  display: inline-block;
+  width: 3px;
+  background-color: #3f51b5;
+  animation: blink 1s step-end infinite;
+  margin-left: 5px;
+}
+
+@keyframes blink {
+
+  from,
+  to {
+    opacity: 1;
+  }
+
+  50% {
+    opacity: 0;
+  }
+}
+
+.cursor.typing {
+  animation: none;
+  opacity: 1;
+}

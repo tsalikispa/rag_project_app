@@ -1,0 +1,14 @@
+<!-- src/app/welcome/welcome.component.html -->
+<div class="welcome-container">
+  <mat-card class="welcome-card">
+    <mat-card-content>
+      <h1 class="welcome-title">
+        <span class="typed-text">{{ displayText }}</span><span class="cursor" [ngClass]="{'typing': isTyping}">|</span>
+      </h1>
+      <p class="welcome-subtitle">Upload PDF documents and ask questions to get intelligent answers</p>
+      <div class="button-container">
+        <button mat-raised-button color="primary" (click)="navigateToRagSystem()">Get Started</button>
+      </div>
+    </mat-card-content>
+  </mat-card>
+</div>
