@@ -1,40 +1,30 @@
-# Python
-__pycache__/
-*.py[cod]
-*.sqlite3
-*.log
-*.pot
-*.pyc
-
-# Virtual environment
+# Python / Django Backend Ignore
+backend/venv/
 venv/
-env/
-/media/
-
-# Django
+*.pyc
+__pycache__/
 *.sqlite3
-db.sqlite3
+*.env
+*.log
 media/
 staticfiles/
-*.log
+backend/ragBackend/chroma_db/
+backend/ragBackend/media/
 
-# Secrets
-.env
-*.pem
+# Angular Frontend Ignore
+frontend-rag-system/node_modules/
+frontend-rag-system/.angular/
+frontend-rag-system/dist/
+frontend-rag-system/.idea/
+frontend-rag-system/.vscode/
+frontend-rag-system/*.log
+frontend-rag-system/npm-debug.log*
+frontend-rag-system/yarn-debug.log*
+frontend-rag-system/yarn-error.log*
 
-# Angular
-node_modules/
-dist/
-tmp/
-.angular/
-package-lock.json
-
-# OS / Editor
+# General Project Ignore
 .DS_Store
-Thumbs.db
-*.swp
-.idea/
-.vscode/
-
-# Git
-*.orig
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
