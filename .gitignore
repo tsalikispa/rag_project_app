@@ -1,15 +1,46 @@
 # Python / Django Backend Ignore
-backend/venv/
+# Virtual Environments
 venv/
+backend/venv/
+*.venv
+.env
+.venv
+
+# Python Bytecode and Caches
 *.pyc
 __pycache__/
-*.sqlite3
-*.env
+*.pyo
+*.pyd
+.Python
+
+# Django Specific
 *.log
+local_settings.py
+db.sqlite3
+db.sqlite3-journal
 media/
 staticfiles/
+
+# Machine Learning / AI Specific
+# Large model files and data
+*.pth
+*.pt
+*.model
+*.pkl
+*.joblib
+
+# ChromaDB and Vector Databases
 backend/ragBackend/chroma_db/
-backend/ragBackend/media/
+*.bin
+chroma.sqlite3
+
+# Torch and CUDA Libraries
+*.so
+*.so.*
+**/lib/python*/site-packages/torch/lib/*.so
+**/lib/python*/site-packages/nvidia/**/*.so
+**/lib/python*/site-packages/triton/**/*.so
+**/lib/python*/site-packages/cusparselt/**/*.so
 
 # Angular Frontend Ignore
 frontend-rag-system/node_modules/
@@ -17,14 +48,48 @@ frontend-rag-system/.angular/
 frontend-rag-system/dist/
 frontend-rag-system/.idea/
 frontend-rag-system/.vscode/
-frontend-rag-system/*.log
+
+# Frontend Logs
+*.log
 frontend-rag-system/npm-debug.log*
 frontend-rag-system/yarn-debug.log*
 frontend-rag-system/yarn-error.log*
 
-# General Project Ignore
+# IDE and Editor Directories
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+
+# OS Generated Files
 .DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Environment and Local Configs
 .env.local
 .env.development.local
 .env.test.local
 .env.production.local
+
+# Backup and Temporary Files
+*.bak
+*.gho
+*.ori
+*.orig
+*.tmp
+
+# Dependency Directories
+node_modules/
+jspm_packages/
+
+# Jupyter Notebook
+.ipynb_checkpoints
+
+# Project-Specific Ignores
+# Add any additional project-specific large or sensitive files here
