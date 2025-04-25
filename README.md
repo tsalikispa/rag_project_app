@@ -92,7 +92,7 @@ Visit `http://localhost:4200` to access the application.
 ## 📁 Project Structure
 
 ```
-pdf-qa-system/
+rag_project_app/
 ├── backend/                # Django backend
 │   ├── rag/                # RAG application
 │   │   ├── models.py       # Database models
@@ -157,9 +157,6 @@ Contributions are welcome! Please feel free to submit a Pull Request.
 4. Push to the branch (`git push origin feature/amazing-feature`)
 5. Open a Pull Request
 
-## 📄 License
-
-This project is licensed under the MIT License - see the LICENSE file for details.
 
 ## 🙏 Acknowledgments
 
