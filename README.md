@@ -2,7 +2,7 @@
 
 A powerful MVC-based AI application that enables users to upload PDF documents and ask natural language questions about their content. The system leverages RAG (Retrieval-Augmented Generation) to provide accurate, contextually relevant answers based on document content.
 
-![System Demo](docs/system_demo.gif)
+
 
 ## 🚀 Features
 
@@ -22,7 +22,7 @@ This application follows the Model-View-Controller (MVC) pattern with:
 - **NLP Framework**: LangChain
 - **LLM**: DeepSeek-R1-Distill-Qwen-7B running on CUDA
 
-![System Architecture](docs/architecture.png)
+
 
 ## 🔧 Technical Stack
 
@@ -147,15 +147,6 @@ The system utilizes:
 - GPU acceleration with n_gpu_layers=32 (RTX 4070)
 - all-MiniLM-L6-v2 embeddings (384 dimensions)
 
-## 🤝 Contributing
-
-Contributions are welcome! Please feel free to submit a Pull Request.
-
-1. Fork the repository
-2. Create your feature branch (`git checkout -b feature/amazing-feature`)
-3. Commit your changes (`git commit -m 'Add some amazing feature'`)
-4. Push to the branch (`git push origin feature/amazing-feature`)
-5. Open a Pull Request
 
 
 ## 🙏 Acknowledgments
