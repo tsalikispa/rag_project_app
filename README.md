@@ -1,6 +1,6 @@
 # PDF Question Answering System
 
-A powerful MVC-based AI application that enables users to upload PDF documents and ask natural language questions about their content. The system leverages RAG (Retrieval-Augmented Generation) to provide accurate, contextually relevant answers based on document content.
+An MVC-based AI application that enables users to upload PDF documents and ask natural language questions about their content. The system leverages RAG (Retrieval-Augmented Generation) to provide accurate, contextually relevant answers based on document content.
 
 
 
